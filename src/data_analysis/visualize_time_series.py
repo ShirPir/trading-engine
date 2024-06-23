@@ -1,12 +1,7 @@
-#%%
-from data_analysis.visualize_time_series import *
-# %%
-
-
-
-import pandas as pd
+from data_acquisition import load_historical_data
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
+
 def plot_historical_data(tickers, columns=None, start_date=None, end_date=None):
   """
   Generates and plots timeseries data for one or more tickers in subplots.
@@ -34,7 +29,7 @@ def plot_historical_data(tickers, columns=None, start_date=None, end_date=None):
   for i, ticker in enumerate(tickers):
     data = load_historical_data(ticker, columns, start_date, end_date)
     for j, col in enumerate(columns):
-      axes[j].plot(data.index, data[col], label=ticker, linewidth=.5)
+      axes[j].plot(data.index, data[col], label=ticker)
       axes[j].set_title(f"{col}")
       axes[j].legend()
 
@@ -47,14 +42,8 @@ def plot_historical_data(tickers, columns=None, start_date=None, end_date=None):
 
   # Style the plot
   plt.style.use('seaborn-v0_8-whitegrid')  # Example style, adjust as desired
-  #plt.tight_layout()
+  plt.tight_layout()
 
   # Make the plot interactive
   #plt.interactive()
   plt.show()
-
-# Example usage
-tickers = ["AAPL", "GOOG", "MSFT"]
-columns = ["Open", "Close", "Volume"]
-plot_historical_data(tickers, columns=columns, start_date="1999-01-01", end_date="2008-01-01")
-# %%
